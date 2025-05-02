@@ -1,6 +1,6 @@
 $(document).ready(function () {
   function checkSections() {
-    var triggerBottom = $(window).height() * 0.6;
+    const triggerBottom = $(window).height() * 0.6;
 
     $('.section').each(function () {
       var top = $(this).offset().top - $(window).scrollTop();
