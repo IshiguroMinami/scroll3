@@ -1,5 +1,9 @@
-@charset "UTF-8";
-/* 全体の基本スタイル */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   font-family: sans-serif;
   margin: 0;
@@ -11,7 +15,7 @@ header {
   text-align: center;
   padding: 2rem 1rem;
   background-color: #333;
-  color: white;
+  color: #fff;
 }
 
 h1 {
@@ -19,7 +23,6 @@ h1 {
   font-size: 2rem;
 }
 
-/* セクションごとのスタイル */
 .section {
   display: flex;
   justify-content: center;
@@ -27,16 +30,13 @@ h1 {
   min-height: 100vh;
   opacity: 0;
   transform: scale(1);
-  transition: transform 0.6s ease;
+  transition: transform 0.6s ease, opacity 0.6s ease;
 }
-
-/* スクロールで表示された時 */
 .section.active {
   opacity: 1;
-  transform: scale(0.97); /* 表示領域を少し縮小 */
+  transform: scale(0.97);
 }
 
-/* content レイアウト */
 .content {
   display: flex;
   gap: 2rem;
@@ -45,55 +45,24 @@ h1 {
   border-radius: 1rem;
   transition: transform 0.8s ease;
 }
+.content:hover .text__maincopy {
+  text-shadow: 0 0 0 #000, 0 1.5em 0 #000;
+}
+.content.hover img {
+  transform: scale(0.95);
+}
 
-/* ホバー時の全体軽い縮小 
-.content.hover {
-  transform: scale(0.97);
-} */
-/* テキスト側 */
-.text {
-  position: relative;
-  width: 300px;
-  height: 150px;
+.text__maincopy {
   overflow: hidden;
+  color: transparent;
+  font-size: 30px;
+  text-shadow: 0 -1.5em 0 #000, 0 0 0 #000;
+  transition: text-shadow 0.3s;
 }
 
-/* 2段構えのレイヤー構成 */
-.text-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 通常のテキストは表示しておく */
-.text-layer.original {
-  opacity: 1;
-}
-
-/* ホバーで original を上に、hover-text を下からスライドイン */
-.content.hover .text-layer.original {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.content.hover .text-layer.hover-text {
-  transform: translateY(0%);
-  opacity: 1;
-}
-
-/* 画像側 */
 img {
   width: 350px;
   height: 250px;
   transition: transform 0.4s ease;
   transform: scale(1);
-}
-
-/* content にホバーしたら画像を少し縮小 */
-.content.hover img {
-  transform: scale(0.95);
 }/*# sourceMappingURL=style.css.map */

@@ -1,16 +1,39 @@
-/* 全体の基本スタイル */
-body {
-  font-family: sans-serif;
+// SCSSバージョン
+
+// 変数定義
+$color-background: #f4f4f4;
+$color-header-bg: #333;
+$color-header-text: #fff;
+$text-color-shadow: #000;
+$font-main: sans-serif;
+
+$section-transition-duration: 0.6s;
+$content-gap: 2rem;
+$content-padding: 2rem;
+$content-radius: 1rem;
+$text-font-size: 30px;
+$image-width: 350px;
+$image-height: 250px;
+
+// 全体の基本スタイル
+* {
   margin: 0;
   padding: 0;
-  background: #f4f4f4;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-main;
+  margin: 0;
+  padding: 0;
+  background: $color-background;
 }
 
 header {
   text-align: center;
   padding: 2rem 1rem;
-  background-color: #333;
-  color: white;
+  background-color: $color-header-bg;
+  color: $color-header-text;
 }
 
 h1 {
@@ -18,7 +41,7 @@ h1 {
   font-size: 2rem;
 }
 
-/* セクションごとのスタイル */
+// セクション
 .section {
   display: flex;
   justify-content: center;
@@ -26,75 +49,49 @@ h1 {
   min-height: 100vh;
   opacity: 0;
   transform: scale(1);
-  transition: transform 0.6s ease;
+  transition: transform $section-transition-duration ease, opacity $section-transition-duration ease;
+
+  &.active {
+    opacity: 1;
+    transform: scale(0.97);
+  }
 }
 
-/* スクロールで表示された時 */
-.section.active {
-  opacity: 1;
-  transform: scale(0.97); /* 表示領域を少し縮小 */
-}
-
-/* content レイアウト */
+// content
 .content {
   display: flex;
-  gap: 2rem;
+  gap: $content-gap;
   align-items: center;
-  padding: 2rem;
-  // background-color: white;
-  border-radius: 1rem;
+  padding: $content-padding;
+  border-radius: $content-radius;
   transition: transform 0.8s ease;
+
+  &:hover {
+    .text__maincopy {
+      text-shadow: 0 0 0 $text-color-shadow, 0 1.5em 0 $text-color-shadow;
+    }
+  }
+
+  &.hover {
+    img {
+      transform: scale(0.95);
+    }
+  }
 }
 
-/* ホバー時の全体軽い縮小 
-.content.hover {
-  transform: scale(0.97);
-} */
-
-/* テキスト側 */
-.text {
-  position: relative;
-  width: 300px;
-  height: 150px;
+// テキスト
+.text__maincopy {
   overflow: hidden;
+  color: transparent;
+  font-size: $text-font-size;
+  text-shadow: 0 -1.5em 0 $text-color-shadow, 0 0 0 $text-color-shadow;
+  transition: text-shadow 0.3s;
 }
 
-/* 2段構えのレイヤー構成 */
-.text-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* 通常のテキストは表示しておく */
-.text-layer.original {
-  opacity: 1;
-}
-
-/* ホバーで original を上に、hover-text を下からスライドイン */
-.content.hover .text-layer.original {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-
-.content.hover .text-layer.hover-text {
-  transform: translateY(0%);
-  opacity: 1;
-}
-
-/* 画像側 */
+// 画像
 img {
-  width: 350px;
-  height: 250px;
+  width: $image-width;
+  height: $image-height;
   transition: transform 0.4s ease;
   transform: scale(1);
-}
-
-/* content にホバーしたら画像を少し縮小 */
-.content.hover img {
-  transform: scale(0.95);
 }
